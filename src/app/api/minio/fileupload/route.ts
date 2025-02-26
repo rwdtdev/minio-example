@@ -13,7 +13,8 @@ export async function POST(req: Request) {
   const res = await req.arrayBuffer();
   const buff = Buffer.from(res);
 
-  minioClient.putObject(
+  console.log('minioClient.putObject start ');
+  await minioClient.putObject(
     bucket,
     filename!,
     buff,
@@ -22,10 +23,11 @@ export async function POST(req: Request) {
     function (err: Error, objInfo: any) {
       if (err) {
         return console.log(err); // err should be null
-      }
-      console.log('Success', objInfo);
-    } */
+        }
+        console.log('Success', objInfo);
+        } */
   );
+  console.log('minioClient.putObject finish ');
   revalidatePath('/', 'page');
 
   return new Response('', { status: 200 });

@@ -32,10 +32,10 @@ export async function getMinioFileList(): Promise<
         new Promise(
           async (resolve: (value: MinioOjectType & BucketItemStat) => void) => {
             const stats = await minioClient.statObject(bucket, obj.name);
-            console.log('🚀 ~ listObjects.forEach ~ stats:', obj.name, {
-              ...obj,
-              ...stats,
-            });
+            // console.log('🚀 ~ listObjects.forEach ~ stats:', obj.name, {
+            //   ...obj,
+            //   ...stats,
+            // });
             resolve({ ...obj, ...stats });
           }
         )

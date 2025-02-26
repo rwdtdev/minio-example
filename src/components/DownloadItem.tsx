@@ -6,7 +6,7 @@ type Props = {
   name: string;
 };
 export function DownloadItem({ name }: Props) {
-  console.log('🚀 ~ name:', name);
+  // console.log('🚀 ~ name:', name);
   return (
     <>
       <Download

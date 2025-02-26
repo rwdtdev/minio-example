@@ -4,8 +4,11 @@ import { Readable } from 'stream';
 export async function GET(req: Request) {
   // const objectName = req.url.split('?')[1];
   const objectName = decodeURI(new URL(req.url).search).substring(1);
-  const stats = await minioClient.statObject(bucket, objectName);
-  const res = await minioClient.getObject(bucket, objectName);
+
+  const [stats, res] = await Promise.all([
+    minioClient.statObject(bucket, objectName),
+    minioClient.getObject(bucket, objectName),
+  ]);
   const data: ReadableStream = iteratorToStream(nodeStreamToIterator(res));
 
   return new Response(data, {

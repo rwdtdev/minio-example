@@ -9,7 +9,7 @@ import { MinioItem } from '@/components/MinioItem';
 export default async function HomePage() {
   const minioItemsList: (MinioOjectType & BucketItemStat)[] =
     await getMinioFileList();
-  console.log('🚀 ~ HomePage ~ res:', minioItemsList);
+  // console.log('🚀 ~ HomePage ~ res:', minioItemsList);
   return (
     <>
       <h1>HomePage</h1>

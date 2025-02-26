@@ -19,7 +19,7 @@ export function DownloadItem({ name }: Props) {
           const result = await res.arrayBuffer();
           console.log(result);
           const blob = new Blob([result], { type: contentType });
-          let link = document.createElement('a');
+          const link = document.createElement('a');
           link.download = name;
           link.href = URL.createObjectURL(blob);
           console.log('🚀 ~ .then ~ href:', link.href);

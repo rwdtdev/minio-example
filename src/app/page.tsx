@@ -1,5 +1,4 @@
 import { getMinioFileList } from './actions/minioActions';
-import { VideoItem } from '@/components/VideoItem';
 import { DropZoneBlock } from '@/components/DropZoneBlock';
 import { MinioOjectType } from '@/lib/s3minioClient';
 import { DownloadItem } from '@/components/DownloadItem';

@@ -59,7 +59,10 @@ export function DropZoneBlock() {
           <section className='border'>
             <div {...getRootProps()} className='h-40'>
               <input {...getInputProps()} />
-              <p>Drag 'n' drop some files here, or click to select files</p>
+              <p>
+                Drag &apos;n&apos; drop some files here, or click to select
+                files
+              </p>
             </div>
           </section>
         )}

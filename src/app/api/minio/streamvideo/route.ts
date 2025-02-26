@@ -1,15 +1,5 @@
-import * as Minio from 'minio';
+import { bucket, minioClient } from '@/lib/s3minioClient';
 import { Readable } from 'stream';
-
-const minioClient = new Minio.Client({
-  endPoint: '95.163.241.119',
-  port: 9000,
-  useSSL: false,
-  accessKey: 'QZ616Rcrn2U3uJZjM0ou',
-  secretKey: 'O1tOUF0OIrL00jzGTjsNNRwhoFTmxhnU1qyoqTMb',
-});
-
-const bucket = 'minio-bucket-1';
 
 export async function GET(req: Request) {
   const requestHeaders = new Headers(req.headers);

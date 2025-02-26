@@ -1,5 +1,7 @@
 'use client';
 
+import { Download } from 'lucide-react';
+
 type Props = {
   name: string;
 };
@@ -7,7 +9,9 @@ export function DownloadItem({ name }: Props) {
   console.log('🚀 ~ name:', name);
   return (
     <>
-      <div
+      <Download
+        size={20}
+        className='mr-2'
         onClick={async () => {
           const res = await fetch('/api/minio/streamfile?' + name);
           const contentType = res.headers.get('content-type') || undefined;
@@ -21,10 +25,7 @@ export function DownloadItem({ name }: Props) {
           console.log('🚀 ~ .then ~ href:', link.href);
           link.click();
         }}
-      >
-        {name}
-      </div>
-      <a href=''></a>
+      />
     </>
   );
 }

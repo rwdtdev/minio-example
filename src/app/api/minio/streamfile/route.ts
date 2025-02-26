@@ -1,24 +1,17 @@
-import { minioClient } from '@/lib/s3minioClient';
-import * as Minio from 'minio';
+import { bucket, minioClient } from '@/lib/s3minioClient';
 import { Readable } from 'stream';
 
-const bucket = 'minio-bucket-1';
-
 export async function GET(req: Request) {
-  const requestHeaders = new Headers(req.headers);
-  console.log('🚀 ~ GET ~ requestHeaders:', requestHeaders);
-
   // const objectName = req.url.split('?')[1];
   const objectName = decodeURI(new URL(req.url).search).substring(1);
-  console.log('🚀 ~ GET ~ objectName:', objectName);
-
+  const stats = await minioClient.statObject(bucket, objectName);
   const res = await minioClient.getObject(bucket, objectName);
   const data: ReadableStream = iteratorToStream(nodeStreamToIterator(res));
 
   return new Response(data, {
     status: 206,
     headers: {
-      'Content-Type': 'text/html',
+      'Content-Type': stats.metaData['content-type'],
     },
   });
 }

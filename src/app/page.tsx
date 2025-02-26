@@ -1,4 +1,3 @@
-import { Btn } from '@/components/Btn';
 import { getMinioFileList } from './actions/minioActions';
 import { VideoItem } from '@/components/VideoItem';
 import { DropZoneBlock } from '@/components/DropZoneBlock';
@@ -14,12 +13,14 @@ export default async function HomePage() {
   return (
     <>
       <h1>HomePage</h1>
-      <Btn />
       <ul className='flex flex-wrap justify-start'>
         {minioItemsList.map((minioItem) => (
           <li key={minioItem.name} className=' mr-5 mb-5 min-h-40'>
             <MinioItem data={minioItem} />
-            {minioItem.name}
+            <div className='flex'>
+              <DownloadItem name={minioItem.name} />
+              <span className='text-sm'>{minioItem.name}</span>
+            </div>
           </li>
         ))}
       </ul>
@@ -27,23 +28,3 @@ export default async function HomePage() {
     </>
   );
 }
-
-/* {
-          console.log(minioItem.name.split('.').at(-1));
-          if (minioItem.name.split('.').at(-1) === 'mp4') {
-            return (
-              <li key={minioItem.name} className=' mr-5 mb-5 min-h-40'>
-                <VideoItem key={minioItem.name} data={minioItem} />
-              </li>
-            );
-          } else {
-            return (
-              <li
-                key={minioItem.name}
-                className='bg-blue-200 mr-5 mb-5 min-h-40'
-              >
-                <DownloadItem name={minioItem.name} />
-              </li>
-            );
-          }
-        } */

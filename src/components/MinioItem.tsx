@@ -1,5 +1,4 @@
 'use client';
-
 import { MinioOjectType } from '@/lib/s3minioClient';
 import { BucketItemStat } from 'minio';
 
@@ -22,26 +21,33 @@ export function MinioItem({ data }: { data: MinioOjectType & BucketItemStat }) {
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     )
   ) {
-    return <img src={'/msword.svg'} height={100} width={100} alt='' />;
-  } else {
     return (
-      <div
+      <img
+        src={'/msword.svg'}
+        height={100}
+        width={100}
+        alt=''
         onClick={async () => {
-          const res = await fetch('/api/minio/streamfile?' + name);
-          const contentType = res.headers.get('content-type') || undefined;
-          console.log('🚀 ~ onClick={ ~ contentType:', contentType);
-          const result = await res.arrayBuffer();
-          console.log(result);
-          const blob = new Blob([result], { type: contentType });
-          let link = document.createElement('a');
-          link.download = data.name;
-          link.href = URL.createObjectURL(blob);
-          console.log('🚀 ~ .then ~ href:', link.href);
-          link.click();
+          window.open('/wordpreview?name=' + data.name);
         }}
-      >
-        {data.name}
-      </div>
+      />
     );
+  } else if (data.metaData['content-type'].includes('application/pdf')) {
+    return (
+      <img
+        src={'/pdflogo.svg'}
+        alt=''
+        onClick={async () => {
+          const res = await fetch('/api/minio/streamfile?' + data.name);
+          const contentType = res.headers.get('content-type') || undefined;
+          const result = await res.arrayBuffer();
+          const blob = new Blob([result], { type: contentType });
+          const urlBlob = URL.createObjectURL(blob);
+          window.open(urlBlob);
+        }}
+      />
+    );
+  } else {
+    return <img src={'/filequestion.svg'} height={100} width={100} alt='' />;
   }
 }

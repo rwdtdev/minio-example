@@ -2,6 +2,8 @@
 import { MinioOjectType } from '@/lib/s3minioClient';
 import { BucketItemStat } from 'minio';
 
+// #t=0.001 in video source src needs for ios preview picture
+
 export function MinioItem({ data }: { data: MinioOjectType & BucketItemStat }) {
   if (data.metaData['content-type'].includes('video')) {
     return (

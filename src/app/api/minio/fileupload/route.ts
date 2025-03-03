@@ -19,13 +19,7 @@ export async function POST(req: Request) {
     filename!,
     buff,
     Buffer.byteLength(buff),
-    { 'content-type': ContentType } /* ,
-    function (err: Error, objInfo: any) {
-      if (err) {
-        return console.log(err); // err should be null
-        }
-        console.log('Success', objInfo);
-        } */
+    { 'content-type': ContentType } // minio transform Content-Type to content-type
   );
   console.log('minioClient.putObject finish ');
   revalidatePath('/', 'page');

@@ -33,7 +33,7 @@ export async function GET(req: Request) {
       'Content-Range': `bytes ${start}-${end}/${videoSize}`,
       'Accept-Ranges': `bytes`,
       'Content-Length': `${contentLength}`,
-      'Content-Type': stats.metaData['Content-Type'],
+      'Content-Type': stats.metaData['content-type'],
     },
   });
 }

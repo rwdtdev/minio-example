@@ -5,9 +5,9 @@ import { BucketItemStat } from 'minio';
 export function MinioItem({ data }: { data: MinioOjectType & BucketItemStat }) {
   if (data.metaData['content-type'].includes('video')) {
     return (
-      <video width='320' height='240' controls>
+      <video width='320' height='240' controls playsInline>
         <source
-          src={'/api/minio/streamvideo?' + data.name}
+          src={'/api/minio/streamvideo?' + data.name + '#t=0.001'}
           type='video/mp4'
         ></source>
         {data.name}

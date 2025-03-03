@@ -6,7 +6,6 @@ export async function GET(req: Request) {
   const range = requestHeaders.get('range');
   console.log('🚀 ~ GET ~ range:', range);
 
-  // const objectName = req.url.split('?')[1];
   const objectName = decodeURI(new URL(req.url).search).substring(1);
 
   const stats = await minioClient.statObject(bucket, objectName);
@@ -16,15 +15,8 @@ export async function GET(req: Request) {
   const start = Number(range?.split('=')[1].split('-')[0]);
   let end = Number(range?.split('=')[1].split('-')[1]);
   end = end || videoSize - 1;
-  console.log('Content-Range:', `bytes ${start}-${end}/${videoSize}`);
-  console.log('Content-Length:', `${end - start}`);
-  console.log('Content-Type:', stats.metaData['cContent-type']);
 
-  if (start === end) {
-    return new Response('', {
-      status: 200,
-    });
-  }
+  const contentLength = end - start === 1 ? 1 : end - start + 1; // для ios и macos
 
   const res = await minioClient.getPartialObject(
     bucket,
@@ -40,7 +32,7 @@ export async function GET(req: Request) {
     headers: {
       'Content-Range': `bytes ${start}-${end}/${videoSize}`,
       'Accept-Ranges': `bytes`,
-      'Content-Length': `${end - start}`,
+      'Content-Length': `${contentLength}`,
       'Content-Type': stats.metaData['Content-Type'],
     },
   });
